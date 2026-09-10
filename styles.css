@@ -91,6 +91,9 @@ body {
 .photo-frame {
   filter: saturate(0.92) contrast(1.02);
 }
+.dark .photo-frame {
+  filter: saturate(0.85) contrast(1.03) brightness(0.82);
+}
 
 @media (prefers-reduced-motion: reduce) {
   html {

@@ -86,8 +86,7 @@
     const grid = document.getElementById("team-grid");
     if (!grid) return;
 
-    grid.className =
-      "mt-14 grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 dark:border-cloud/10 dark:bg-cloud/10 sm:grid-cols-2 lg:grid-cols-3";
+    grid.className = "mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3";
 
     grid.innerHTML = teamMembers
       .map(
@@ -95,27 +94,31 @@
       <button
         type="button"
         data-member="${m.id}"
-        class="reveal group flex flex-col gap-4 bg-paper p-6 text-left transition-colors hover:bg-paper-soft focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-rust dark:bg-night dark:hover:bg-night-soft"
+        class="reveal group flex flex-col overflow-hidden rounded-2xl border border-ink/10 bg-paper-soft text-left transition-colors hover:border-ink/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-rust dark:border-cloud/10 dark:bg-night-soft dark:hover:border-cloud/25"
       >
-        <div class="flex items-start justify-between">
+        <div class="relative aspect-[4/3] overflow-hidden bg-ink/5 dark:bg-cloud/5">
           ${pictureTag(
             m.image,
             m.name,
-            "photo-frame h-16 w-16 rounded-full object-cover object-top ring-1 ring-ink/10 transition-transform duration-300 group-hover:scale-105 dark:ring-cloud/15"
+            "photo-frame h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
           )}
-          <span class="font-display text-sm text-cloud-soft">0${i + 1}</span>
+          <span class="absolute right-3 top-3 rounded-full bg-night/55 px-2 py-0.5 font-display text-xs font-medium text-cloud backdrop-blur-sm">0${
+            i + 1
+          }</span>
         </div>
-        <div>
-          <h3 class="font-display text-lg font-bold leading-tight">${esc(m.name)}</h3>
-          <p class="mt-1 text-sm text-ink-soft dark:text-cloud-soft">${esc(m.title)}</p>
+        <div class="flex flex-1 flex-col gap-3 p-6">
+          <div>
+            <h3 class="font-display text-lg font-bold leading-tight">${esc(m.name)}</h3>
+            <p class="mt-1 text-sm text-ink-soft dark:text-cloud-soft">${esc(m.title)}</p>
+          </div>
+          <p class="text-sm leading-relaxed text-ink-soft dark:text-cloud-soft">"${esc(m.quote)}"</p>
+          <span class="mt-auto inline-flex items-center gap-1.5 pt-1 text-sm font-medium text-rust">
+            Läs mer
+            <svg class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
         </div>
-        <p class="text-sm leading-relaxed text-ink-soft dark:text-cloud-soft">"${esc(m.quote)}"</p>
-        <span class="mt-auto inline-flex items-center gap-1.5 text-sm font-medium text-rust">
-          Läs mer
-          <svg class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-            <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </span>
       </button>`
       )
       .join("");
@@ -172,11 +175,13 @@
     const modal = document.getElementById("modal") || buildModal();
     document.getElementById("modal-body").innerHTML = `
       <div class="space-y-5">
-        ${pictureTag(
-          member.image,
-          member.name,
-          "photo-frame h-24 w-24 rounded-full object-cover object-top ring-1 ring-ink/10 dark:ring-cloud/15"
-        )}
+        <div class="-mx-1 overflow-hidden rounded-xl bg-ink/5 dark:bg-cloud/5">
+          ${pictureTag(
+            member.image,
+            member.name,
+            "photo-frame aspect-[3/2] w-full object-cover object-top"
+          )}
+        </div>
         <div>
           <h2 id="modal-name" class="font-display text-2xl font-bold leading-tight">${esc(
             member.name
