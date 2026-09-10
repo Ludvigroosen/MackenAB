@@ -1,0 +1,108 @@
+/* Macken & Macken AB — custom layer on top of Tailwind */
+
+:root {
+  color-scheme: light;
+}
+:root.dark {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.font-display {
+  font-family: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: "ss01";
+}
+
+/* Section anchor offset so the sticky header doesn't cover headings */
+[id] {
+  scroll-margin-top: 6rem;
+}
+
+/* Deadpan small-caps kicker */
+.kicker {
+  font-family: "Space Grotesk", "Inter", sans-serif;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+/* Subtle film grain, fixed over everything */
+.grain::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.dark .grain::before {
+  opacity: 0.06;
+}
+
+/* Thin hairline that adapts to theme */
+.hairline {
+  border-color: rgba(26, 22, 18, 0.12);
+}
+.dark .hairline {
+  border-color: rgba(237, 235, 230, 0.14);
+}
+
+/* Reveal-on-scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Modal transitions */
+.modal-backdrop {
+  transition: opacity 0.25s ease;
+}
+.modal-panel {
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.modal-hidden .modal-backdrop {
+  opacity: 0;
+}
+.modal-hidden .modal-panel {
+  opacity: 0;
+  transform: translateY(12px) scale(0.98);
+}
+
+/* Vintage framed photo */
+.photo-frame {
+  filter: saturate(0.92) contrast(1.02);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .modal-backdrop,
+  .modal-panel {
+    transition: none;
+  }
+}

@@ -1,160 +1,493 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="sv" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Macken & Macken AB</title>
-    <link rel="icon" href="favicon.ico" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      .dark {
-        --tw-bg-opacity: 1;
-        background-color: rgba(255, 228, 235, var(--tw-bg-opacity));
-        color: #4b1e2f;
-      }
-      .dark a {
-        color: #9b1c4c;
-      }
-      .dark input,
-      .dark textarea {
-        background-color: #fff0f5;
-        border-color: #e0aabf;
-        color: #4b1e2f;
-      }
-      .dark button {
-        background-color: #d97a9d;
-        color: white;
-      }
-      .dark footer {
-        color: #a9445d;
-      }
-    </style>
+    <title>Macken &amp; Macken AB — Det går bra nu</title>
+    <meta
+      name="description"
+      content="Macken & Macken AB. Över 40 års erfarenhet av att stå i luckan, titta på bilar och undvika ansvar. Det går bra nu — ingen vet riktigt varför."
+    />
+    <meta name="theme-color" content="#faf9f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141312" media="(prefers-color-scheme: dark)" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Macken & Macken AB" />
+    <meta property="og:description" content="&quot;Det går bra nu&quot;… men ingen vet riktigt varför." />
+    <meta property="og:image" content="images/macken.jpg" />
+    <meta property="og:type" content="website" />
+
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23141312'/%3E%3Cpath d='M11 8h7a3 3 0 0 1 3 3v9a2 2 0 0 1-2 2h-6a2 2 0 0 1-2-2V8z' fill='%23c8482e'/%3E%3Cpath d='M21 11h2.5c1 0 1.5.7 1.5 1.6V16' stroke='%23c8482e' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='25' cy='19' r='1.6' fill='%23c8482e'/%3E%3C/svg%3E"
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- No-FOUC theme boot -->
     <script>
-      function toggleDark() {
-        document.documentElement.classList.toggle("dark");
-      }
+      (function () {
+        try {
+          var stored = localStorage.getItem("mm-theme");
+          var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          if (stored === "dark" || (!stored && prefersDark)) {
+            document.documentElement.classList.add("dark");
+          }
+        } catch (e) {}
+      })();
     </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              paper: "#faf9f5",
+              "paper-soft": "#f2efe6",
+              ink: "#1a1613",
+              "ink-soft": "#5b544c",
+              night: "#141312",
+              "night-soft": "#1e1b18",
+              cloud: "#ede9e2",
+              "cloud-soft": "#a49c90",
+              rust: "#c8482e",
+              "rust-bright": "#e05a3c",
+            },
+            fontFamily: {
+              display: ['"Space Grotesk"', '"Inter"', "sans-serif"],
+              sans: ['"Inter"', "ui-sans-serif", "system-ui", "sans-serif"],
+            },
+            maxWidth: { content: "72rem" },
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="styles.css" />
   </head>
-  <body class="transition-colors">
-    <div class="p-6 max-w-5xl mx-auto space-y-12">
-      <section class="text-center">
-        <img
-          src="images/macken.png"
-          alt="Macken & Macken logo"
-          class="w-24 mx-auto mb-4"
-        />
-        <h1 class="text-4xl font-bold mb-2">Macken & Macken AB</h1>
-        <p class="text-lg italic">
-          "Det går bra nu"… men ingen vet riktigt varför.
-        </p>
-      </section>
 
-      <div class="text-right">
-        <button
-          onclick="toggleDark()"
-          class="text-sm text-blue-600 hover:underline"
+  <body
+    class="grain bg-paper text-ink dark:bg-night dark:text-cloud antialiased selection:bg-rust selection:text-paper"
+  >
+    <a
+      href="#om"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
+      >Hoppa till innehåll</a
+    >
+
+    <!-- ============ HEADER ============ -->
+    <header
+      id="site-header"
+      class="fixed inset-x-0 top-0 z-50 border-b border-transparent transition-all duration-300"
+    >
+      <div
+        class="mx-auto flex max-w-content items-center justify-between px-5 py-4 sm:px-8"
+      >
+        <a href="#top" class="group flex items-center gap-2.5">
+          <span
+            class="grid h-9 w-9 place-items-center rounded-lg bg-ink text-paper dark:bg-cloud dark:text-night"
+          >
+            <svg viewBox="0 0 32 32" class="h-5 w-5" aria-hidden="true">
+              <path
+                d="M11 8h7a3 3 0 0 1 3 3v9a2 2 0 0 1-2 2h-6a2 2 0 0 1-2-2V8z"
+                fill="currentColor"
+              />
+              <path
+                d="M21 11h2.5c1 0 1.5.7 1.5 1.6V16"
+                stroke="currentColor"
+                stroke-width="2"
+                fill="none"
+                stroke-linecap="round"
+              />
+              <circle cx="25" cy="19" r="1.6" fill="currentColor" />
+            </svg>
+          </span>
+          <span class="font-display text-[15px] font-bold tracking-tight"
+            >Macken&nbsp;&amp;&nbsp;Macken</span
+          >
+        </a>
+
+        <nav
+          class="hidden items-center gap-8 text-sm text-ink-soft dark:text-cloud-soft md:flex"
+          aria-label="Primär"
         >
-          🌃 Växla mörkt läge
-        </button>
-      </div>
+          <a class="transition-colors hover:text-ink dark:hover:text-cloud" href="#om">Om oss</a>
+          <a class="transition-colors hover:text-ink dark:hover:text-cloud" href="#team">Team</a>
+          <a class="transition-colors hover:text-ink dark:hover:text-cloud" href="#roster">Röster</a>
+          <a class="transition-colors hover:text-ink dark:hover:text-cloud" href="#karriar">Karriär</a>
+        </nav>
 
-      <section>
-        <h2 class="text-2xl font-semibold mb-2">Om oss</h2>
-        <p>
-          På Macken & Macken AB tror vi på att göra så lite som möjligt, så effektivt
-          som möjligt. Med över 40 års erfarenhet av att stå i luckan, titta på bilar
-          och undvika ansvar, har vi byggt ett rykte ingen riktigt kan förklara.
-        </p>
+        <div class="flex items-center gap-2">
+          <a
+            href="#kontakt"
+            class="hidden rounded-full bg-ink px-4 py-2 text-sm font-medium text-paper transition-transform hover:-translate-y-0.5 dark:bg-cloud dark:text-night sm:inline-block"
+            >Kontakt</a
+          >
+          <button
+            id="theme-toggle"
+            type="button"
+            class="grid h-9 w-9 place-items-center rounded-full border border-ink/15 text-ink transition-colors hover:bg-ink/5 dark:border-cloud/20 dark:text-cloud dark:hover:bg-cloud/10"
+            aria-label="Växla mellan ljust och mörkt läge"
+          >
+            <svg class="h-[18px] w-[18px] dark:hidden" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="4.5" stroke="currentColor" stroke-width="1.7" />
+              <path
+                d="M12 2.5v2M12 19.5v2M21.5 12h-2M4.5 12h-2M18.5 5.5l-1.4 1.4M6.9 17.1l-1.4 1.4M18.5 18.5l-1.4-1.4M6.9 6.9L5.5 5.5"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+              />
+            </svg>
+            <svg class="hidden h-[18px] w-[18px] dark:block" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- ============ HERO ============ -->
+      <section class="mx-auto max-w-content px-5 pb-16 pt-32 sm:px-8 sm:pt-40 lg:pt-44">
+        <p class="kicker text-rust">Bensinstation · Sedan 1984</p>
+        <h1
+          class="mt-5 font-display text-[clamp(2.75rem,9vw,6.5rem)] font-bold leading-[0.95] tracking-tight"
+        >
+          Det går<br />bra nu.
+        </h1>
+        <div class="mt-8 grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-end">
+          <p class="max-w-xl text-lg leading-relaxed text-ink-soft dark:text-cloud-soft">
+            <span class="italic">"Det går bra nu"</span>… men ingen vet riktigt varför.
+            Vi har inte undersökt saken. Det verkar fungera, och vi vill inte
+            störa något som fungerar.
+          </p>
+          <div class="flex flex-wrap gap-3 md:justify-end">
+            <a
+              href="#team"
+              class="rounded-full bg-rust px-6 py-3 text-sm font-medium text-paper transition-transform hover:-translate-y-0.5"
+              >Möt teamet</a
+            >
+            <a
+              href="#kontakt"
+              class="rounded-full border border-ink/20 px-6 py-3 text-sm font-medium transition-colors hover:bg-ink/5 dark:border-cloud/25 dark:hover:bg-cloud/10"
+              >Försök nå oss</a
+            >
+          </div>
+        </div>
+
+        <!-- Logo plate -->
+        <figure
+          class="mt-16 overflow-hidden rounded-2xl border border-ink/10 bg-paper-soft dark:border-cloud/10 dark:bg-night-soft"
+        >
+          <picture>
+            <source srcset="images/macken.webp" type="image/webp" />
+            <img
+              src="images/macken.jpg"
+              alt="Macken & Macken AB:s logotyp — ett leende bensinmunstycke"
+              width="1000"
+              height="1000"
+              class="photo-frame mx-auto w-full max-w-2xl"
+            />
+          </picture>
+        </figure>
       </section>
 
-      <!-- Team injected below by script -->
+      <!-- ============ STATS ============ -->
+      <section class="border-y border-ink/10 dark:border-cloud/10">
+        <div class="mx-auto max-w-content px-5 sm:px-8">
+          <dl
+            class="grid grid-cols-2 gap-px overflow-hidden bg-ink/10 dark:bg-cloud/10 lg:grid-cols-4"
+          >
+            <div class="reveal bg-paper px-1 py-9 dark:bg-night sm:px-4 sm:py-11">
+              <dt class="font-display text-3xl font-bold sm:text-4xl">
+                40<span class="text-rust">+</span>
+              </dt>
+              <dd class="mt-1.5 text-sm text-ink-soft dark:text-cloud-soft">år i luckan</dd>
+            </div>
+            <div class="reveal bg-paper px-1 py-9 dark:bg-night sm:px-4 sm:py-11">
+              <dt class="font-display text-3xl font-bold sm:text-4xl">1</dt>
+              <dd class="mt-1.5 text-sm text-ink-soft dark:text-cloud-soft">lucka, fortfarande</dd>
+            </div>
+            <div class="reveal bg-paper px-1 py-9 dark:bg-night sm:px-4 sm:py-11">
+              <dt class="font-display text-3xl font-bold sm:text-4xl">0&nbsp;kr</dt>
+              <dd class="mt-1.5 text-sm text-ink-soft dark:text-cloud-soft">
+                investerat i förändring
+              </dd>
+            </div>
+            <div class="reveal bg-paper px-1 py-9 dark:bg-night sm:px-4 sm:py-11">
+              <dt class="font-display text-3xl font-bold sm:text-4xl">Nej</dt>
+              <dd class="mt-1.5 text-sm text-ink-soft dark:text-cloud-soft">är Sten anställd</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
 
-      <!-- Placeholder to inject modal -->
-      <div id="modal-placeholder"></div>
-      
-      <section>
-        <h2 class="text-2xl font-semibold mb-4">
-          Kundcitat (vi har hört dem förut)
-        </h2>
-        <div class="space-y-4">
-          <div class="bg-red-50 border border-red-200 p-4 rounded-lg">
-            <p class="font-semibold">Göran från Götet</p>
-            <p class="text-sm">
-              “Jag har varit kund i tre år. Inget har hänt. Fantastiskt!”
-            </p>
+      <!-- ============ OM OSS ============ -->
+      <section id="om" class="mx-auto max-w-content px-5 py-24 sm:px-8 sm:py-32">
+        <div class="grid gap-12 md:grid-cols-[0.4fr_0.6fr]">
+          <div class="reveal">
+            <p class="kicker text-rust">Om oss</p>
+            <h2 class="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+              Så lite som möjligt, så effektivt som möjligt.
+            </h2>
           </div>
-          <div class="bg-red-50 border border-red-200 p-4 rounded-lg">
-            <p class="font-semibold">Birgitta med bilen</p>
-            <p class="text-sm">
-              “Jag lämnade in bilen 1994. De sa 'vi ringer'. De gjorde aldrig det.”
+          <div class="reveal space-y-5 text-lg leading-relaxed text-ink-soft dark:text-cloud-soft">
+            <p>
+              På Macken &amp; Macken AB tror vi på att göra så lite som möjligt, så
+              effektivt som möjligt. Med över 40 års erfarenhet av att stå i luckan,
+              titta på bilar och undvika ansvar har vi byggt ett rykte ingen riktigt
+              kan förklara.
             </p>
-          </div>
-          <div class="bg-red-50 border border-red-200 p-4 rounded-lg">
-            <p class="font-semibold">Lennart Lugn</p>
-            <p class="text-sm">
-              “Fick fel nycklar. Fel bil. Rätt upplevelse.”
-            </p>
-          </div>
-          <div class="bg-red-50 border border-red-200 p-4 rounded-lg">
-            <p class="font-semibold">Gunnar Ekblad - Ekonomiansvarig</p>
-            <p class="text-sm">
-              “Jobbar verkligen Sten här?”
+            <p>
+              Vi lovar inget. Vi levererar ungefär det. Kunder återkommer år efter
+              år, ofta med samma ärende, och vi möter dem med samma lugn.
             </p>
           </div>
         </div>
       </section>
 
-
-      <section>
-        <h2 class="text-2xl font-semibold mb-2">
-          Kontakta oss (eller försök åtminstone)
-        </h2>
-        <form
-          class="space-y-4 max-w-md"
-          onsubmit="event.preventDefault(); window.location.href='oops.html';"
-        >
-          <input
-            placeholder="Ditt namn"
-            class="w-full p-2 border border-gray-300 rounded"
-          />
-          <input
-            placeholder="Din e-post"
-            class="w-full p-2 border border-gray-300 rounded"
-          />
-          <textarea
-            placeholder="Skriv ditt ärende här..."
-            class="w-full p-2 border border-gray-300 rounded"
-          ></textarea>
-          <button class="bg-gray-300 text-white px-4 py-2 rounded">
-            Skicka (funkar inte)
-          </button>
-        </form>
-        <p class="text-sm text-gray-500 mt-2">
-          Formuläret är mest för syns skull.
-        </p>
+      <!-- ============ TEAM (injected by teamModal.js) ============ -->
+      <section id="team" class="border-t border-ink/10 dark:border-cloud/10">
+        <div class="mx-auto max-w-content px-5 py-24 sm:px-8 sm:py-32">
+          <div class="reveal max-w-2xl">
+            <p class="kicker text-rust">Teamet</p>
+            <h2 class="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+              Folk som är här. Mestadels.
+            </h2>
+            <p class="mt-4 text-lg leading-relaxed text-ink-soft dark:text-cloud-soft">
+              Klicka på en person för att läsa mer än du behöver veta.
+            </p>
+          </div>
+          <div id="team-grid" class="mt-14"></div>
+        </div>
       </section>
 
-      <section>
-        <h2 class="text-2xl font-semibold mb-2">Karriär</h2>
-        <p>
-          Vi letar alltid efter personer som inte riktigt vet vad de gör. Har du
-          en bakgrund inom "lite av varje" och föredrar raster framför resultat –
-          hör inte av dig. Vi hittar dig ändå.
-        </p>
-        <button
-          class="mt-4 bg-gray-300 text-white px-4 py-2 rounded"
-          disabled
-        >
-          Sök ändå (nej men alltså på riktigt, gör inte det)
-        </button>
+      <!-- ============ RÖSTER ============ -->
+      <section id="roster" class="border-t border-ink/10 dark:border-cloud/10">
+        <div class="mx-auto max-w-content px-5 py-24 sm:px-8 sm:py-32">
+          <div class="reveal max-w-2xl">
+            <p class="kicker text-rust">Kundcitat</p>
+            <h2 class="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+              Vi har hört dem förut.
+            </h2>
+          </div>
+
+          <div class="mt-14 grid gap-5 sm:grid-cols-2">
+            <figure
+              class="reveal flex flex-col justify-between rounded-2xl border border-ink/10 bg-paper-soft p-7 dark:border-cloud/10 dark:bg-night-soft"
+            >
+              <blockquote class="font-display text-xl leading-snug">
+                "Jag har varit kund i tre år. Inget har hänt. Fantastiskt!"
+              </blockquote>
+              <figcaption class="mt-6 text-sm text-ink-soft dark:text-cloud-soft">
+                Göran från Götet
+              </figcaption>
+            </figure>
+
+            <figure
+              class="reveal flex flex-col justify-between rounded-2xl border border-ink/10 bg-paper-soft p-7 dark:border-cloud/10 dark:bg-night-soft"
+            >
+              <blockquote class="font-display text-xl leading-snug">
+                "Jag lämnade in bilen 1994. De sa 'vi ringer'. De gjorde aldrig det."
+              </blockquote>
+              <figcaption class="mt-6 text-sm text-ink-soft dark:text-cloud-soft">
+                Birgitta med bilen
+              </figcaption>
+            </figure>
+
+            <figure
+              class="reveal flex flex-col justify-between rounded-2xl border border-ink/10 bg-paper-soft p-7 dark:border-cloud/10 dark:bg-night-soft"
+            >
+              <blockquote class="font-display text-xl leading-snug">
+                "Fick fel nycklar. Fel bil. Rätt upplevelse."
+              </blockquote>
+              <figcaption class="mt-6 text-sm text-ink-soft dark:text-cloud-soft">
+                Lennart Lugn
+              </figcaption>
+            </figure>
+
+            <figure
+              class="reveal flex flex-col justify-between rounded-2xl border border-ink/10 bg-paper-soft p-7 dark:border-cloud/10 dark:bg-night-soft"
+            >
+              <blockquote class="font-display text-xl leading-snug">
+                "Jobbar verkligen Sten här?"
+              </blockquote>
+              <figcaption class="mt-6 text-sm text-ink-soft dark:text-cloud-soft">
+                Gunnar Ekblad — Ekonomiansvarig
+              </figcaption>
+            </figure>
+          </div>
+        </div>
       </section>
 
-      <footer class="mt-16 text-center text-sm text-gray-500 dark:text-gray-400">
-        &copy; 2025 Macken & Macken AB. Alla rättigheter fördröjda.
-      </footer>
-    </div>
+      <!-- ============ KONTAKT ============ -->
+      <section id="kontakt" class="border-t border-ink/10 dark:border-cloud/10">
+        <div class="mx-auto max-w-content px-5 py-24 sm:px-8 sm:py-32">
+          <div class="grid gap-12 md:grid-cols-2">
+            <div class="reveal">
+              <p class="kicker text-rust">Kontakt</p>
+              <h2 class="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+                Kontakta oss.<br />Eller försök åtminstone.
+              </h2>
+              <p class="mt-4 text-lg leading-relaxed text-ink-soft dark:text-cloud-soft">
+                Formuläret är mest för syns skull. Det ser ut att fungera. Det gör
+                det inte.
+              </p>
+              <dl class="mt-8 space-y-3 text-sm">
+                <div class="flex gap-3">
+                  <dt class="w-20 text-ink-soft dark:text-cloud-soft">Luckan</dt>
+                  <dd>Öppen ibland. Bemannad sällan.</dd>
+                </div>
+                <div class="flex gap-3">
+                  <dt class="w-20 text-ink-soft dark:text-cloud-soft">Telefon</dt>
+                  <dd>Ringer. Ingen svarar.</dd>
+                </div>
+                <div class="flex gap-3">
+                  <dt class="w-20 text-ink-soft dark:text-cloud-soft">E-post</dt>
+                  <dd><a class="underline decoration-rust underline-offset-4" href="mailto:hej@mackenmacken.se">hej@mackenmacken.se</a></dd>
+                </div>
+              </dl>
+            </div>
 
-    <!-- Injected Team Modal + JS -->
+            <form
+              class="reveal space-y-4 rounded-2xl border border-ink/10 bg-paper-soft p-6 dark:border-cloud/10 dark:bg-night-soft sm:p-8"
+              onsubmit="event.preventDefault(); window.location.href='oops.html';"
+            >
+              <label class="block">
+                <span class="mb-1.5 block text-sm font-medium">Ditt namn</span>
+                <input
+                  type="text"
+                  autocomplete="name"
+                  class="w-full rounded-lg border border-ink/15 bg-paper px-3.5 py-2.5 text-sm outline-none transition-colors focus:border-rust dark:border-cloud/20 dark:bg-night"
+                  placeholder="Roy B."
+                />
+              </label>
+              <label class="block">
+                <span class="mb-1.5 block text-sm font-medium">Din e-post</span>
+                <input
+                  type="email"
+                  autocomplete="email"
+                  class="w-full rounded-lg border border-ink/15 bg-paper px-3.5 py-2.5 text-sm outline-none transition-colors focus:border-rust dark:border-cloud/20 dark:bg-night"
+                  placeholder="du@example.se"
+                />
+              </label>
+              <label class="block">
+                <span class="mb-1.5 block text-sm font-medium">Ditt ärende</span>
+                <textarea
+                  rows="4"
+                  class="w-full resize-y rounded-lg border border-ink/15 bg-paper px-3.5 py-2.5 text-sm outline-none transition-colors focus:border-rust dark:border-cloud/20 dark:bg-night"
+                  placeholder="Skriv ditt ärende här…"
+                ></textarea>
+              </label>
+              <button
+                type="submit"
+                class="w-full rounded-lg bg-ink px-4 py-3 text-sm font-medium text-paper transition-transform hover:-translate-y-0.5 dark:bg-cloud dark:text-night"
+              >
+                Skicka (funkar inte)
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ KARRIÄR ============ -->
+      <section id="karriar" class="border-t border-ink/10 dark:border-cloud/10">
+        <div class="mx-auto max-w-content px-5 py-24 sm:px-8 sm:py-32">
+          <div class="reveal grid gap-10 md:grid-cols-[0.4fr_0.6fr] md:items-center">
+            <div>
+              <p class="kicker text-rust">Karriär</p>
+              <h2 class="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+                Hör inte av dig.
+              </h2>
+            </div>
+            <div class="space-y-5 text-lg leading-relaxed text-ink-soft dark:text-cloud-soft">
+              <p>
+                Vi letar alltid efter personer som inte riktigt vet vad de gör. Har
+                du en bakgrund inom "lite av varje" och föredrar raster framför
+                resultat — hör inte av dig. Vi hittar dig ändå.
+              </p>
+              <button
+                type="button"
+                disabled
+                class="cursor-not-allowed rounded-full border border-ink/20 px-6 py-3 text-sm font-medium text-ink-soft dark:border-cloud/20 dark:text-cloud-soft"
+              >
+                Sök ändå (nej men alltså på riktigt, gör inte det)
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="border-t border-ink/10 dark:border-cloud/10">
+      <div
+        class="mx-auto flex max-w-content flex-col gap-4 px-5 py-10 text-sm text-ink-soft dark:text-cloud-soft sm:flex-row sm:items-center sm:justify-between sm:px-8"
+      >
+        <p>&copy; 2025 Macken &amp; Macken AB. Alla rättigheter fördröjda.</p>
+        <p class="font-display">"Det går bra nu."</p>
+      </div>
+    </footer>
+
+    <!-- Modal container (populated by teamModal.js) -->
+    <div id="modal-root"></div>
+
     <script src="teamModal.js"></script>
+    <script>
+      // ---- Header background on scroll ----
+      var header = document.getElementById("site-header");
+      function onScroll() {
+        var scrolled = window.scrollY > 12;
+        header.classList.toggle("border-transparent", !scrolled);
+        header.classList.toggle("bg-paper/85", scrolled);
+        header.classList.toggle("dark:bg-night/85", scrolled);
+        header.classList.toggle("backdrop-blur-md", scrolled);
+        header.classList.toggle("border-ink/10", scrolled);
+        header.classList.toggle("dark:border-cloud/10", scrolled);
+      }
+      onScroll();
+      window.addEventListener("scroll", onScroll, { passive: true });
+
+      // ---- Theme toggle ----
+      document.getElementById("theme-toggle").addEventListener("click", function () {
+        var isDark = document.documentElement.classList.toggle("dark");
+        try {
+          localStorage.setItem("mm-theme", isDark ? "dark" : "light");
+        } catch (e) {}
+      });
+
+      // ---- Reveal on scroll ----
+      var io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              io.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12 }
+      );
+      function observeReveals() {
+        document.querySelectorAll(".reveal:not(.is-visible)").forEach(function (el) {
+          io.observe(el);
+        });
+      }
+      observeReveals();
+      // Re-run after the team section is injected
+      window.addEventListener("mm:team-ready", observeReveals);
+    </script>
   </body>
 </html>
