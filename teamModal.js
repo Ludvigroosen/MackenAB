@@ -12,6 +12,7 @@
       story:
         "Roy har stått vid samma pump sedan 1984. Ingen vet vad han väntar på. Inte ens Roy.",
       image: "images/roy",
+      pos: "50% 16%",
     },
     {
       id: "roger",
@@ -22,6 +23,7 @@
       story:
         "Roger backade in på jobbet 1996. Han har aldrig slutat backa.",
       image: "images/roger",
+      pos: "50% 34%",
     },
     {
       id: "edvard",
@@ -31,6 +33,7 @@
       quote: "Har du provat att inte fråga mig?",
       story: "Ingen vet vad Edvard egentligen gör. Det inkluderar Edvard.",
       image: "images/edvard",
+      pos: "50% 20%",
     },
     {
       id: "sten",
@@ -41,6 +44,7 @@
       story:
         "Sten är inte anställd. Han bara dyker upp. Och alla lyssnar.",
       image: "images/sten",
+      pos: "50% 24%",
     },
     {
       id: "maud",
@@ -51,6 +55,7 @@
       story:
         "Maud började egentligen bara hjälpa till med att hämta filterkaffe och ställa frågor som 'har ni provat att starta om den?'. Tio år senare är det hon som håller ihop hela Macken – inte för att hon ville, utan för att någon var tvungen. Hon vet var nycklarna är, när leveranser kommer trots att ingen har sagt något, och exakt hur man får Roy att sluta prata med kunder som bara 'tittar runt'.",
       image: "images/maud",
+      pos: "58% 34%",
     },
     {
       id: "gunnar",
@@ -61,6 +66,7 @@
       story:
         "Gunnar har ett skrivbord i förrådet mellan reservdelar och kvittopärmen. Han säger att han ansvarar för budgeten – men ingen har riktigt bekräftat det.",
       image: "images/gunnar",
+      pos: "50% 16%",
     },
   ];
 
@@ -73,11 +79,12 @@
       "'": "&#39;",
     }[c]));
 
-  function pictureTag(base, alt, cls) {
+  function pictureTag(base, alt, cls, style) {
+    const styleAttr = style ? ` style="${esc(style)}"` : "";
     return `
       <picture>
         <source srcset="${base}.webp" type="image/webp" />
-        <img src="${base}.jpg" alt="${esc(alt)}" loading="lazy" decoding="async" class="${cls}" />
+        <img src="${base}.jpg" alt="${esc(alt)}" loading="lazy" decoding="async" class="${cls}"${styleAttr} />
       </picture>`;
   }
 
@@ -96,11 +103,12 @@
         data-member="${m.id}"
         class="reveal group flex flex-col overflow-hidden rounded-2xl border border-ink/10 bg-paper-soft text-left transition-colors hover:border-ink/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-rust dark:border-cloud/10 dark:bg-night-soft dark:hover:border-cloud/25"
       >
-        <div class="relative aspect-[4/3] overflow-hidden bg-ink/5 dark:bg-cloud/5">
+        <div class="relative aspect-[4/5] overflow-hidden bg-ink/5 dark:bg-cloud/5">
           ${pictureTag(
             m.image,
             m.name,
-            "photo-frame h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+            "photo-frame h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]",
+            "object-position:" + (m.pos || "50% 20%")
           )}
           <span class="absolute right-3 top-3 rounded-full bg-night/55 px-2 py-0.5 font-display text-xs font-medium text-cloud backdrop-blur-sm">0${
             i + 1
@@ -175,11 +183,11 @@
     const modal = document.getElementById("modal") || buildModal();
     document.getElementById("modal-body").innerHTML = `
       <div class="space-y-5">
-        <div class="-mx-1 overflow-hidden rounded-xl bg-ink/5 dark:bg-cloud/5">
+        <div class="grid max-h-[52vh] place-items-center overflow-hidden rounded-xl bg-ink/5 dark:bg-cloud/5">
           ${pictureTag(
             member.image,
             member.name,
-            "photo-frame aspect-[3/2] w-full object-cover object-top"
+            "photo-frame max-h-[52vh] w-auto max-w-full object-contain"
           )}
         </div>
         <div>
